@@ -40,6 +40,13 @@
 			<version>1.2</version>
 		</dependency>
 
+		<!-- spring jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
 		<!-- Oracle JDBC -->
 		<dependency>
 			<groupId>com.oracle</groupId>

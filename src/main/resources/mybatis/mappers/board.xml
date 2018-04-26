@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+
+	<!-- 게시판 리스트 보기 -->
+	<select id="selectByBoardList">
+		<![CDATA[
+			SELECT X.no, X.title, X.name, X.reg_date, X.user_no
+			FROM (SELECT rownum AS num, A.no, A.title, A.name, A.reg_date, A.user_no
+				  FROM (SELECT b.no, b.title, u.name, b.hit, b.reg_date, b.user_no
+				 	    FROM board b, users u
+				        WHERE u.no = b.user_no
+			            ORDER BY b.user_no DESC) A
+				  WHERE rownum <= #{}) X
+			WHERE X.num >=#{}
+		]]>
+	</select>
+	
+	<!-- 게시판 상세 보기 -->
+	<select id="selectByBoardDetail">
+		<![CDATA[
+			SELECT no, title, content, hit
+			FROM board
+			WHERE no LIKE #{no}
+		]]>
+	</select>
+	
+	<!-- 게시판 글쓰기 -->
+	<insert id="insertByBoard" parameterType="kr.co.jimmy.VO.BoardVO">
+		<![CDATA[
+			INSERT INTO board
+			VALUES ( seq_board_no.nextval
+					,#{title}
+					,#{content}
+					,0
+					,sysdate
+					,#{user_no}
+					)
+		]]>
+	</insert>
+	
+	<!-- 게시판 수정 -->
+	<update id="updateByBoard" parameterType="">
+		<![CDATA[
+			UPDATE board
+			SET title = #{title}
+			   ,content = #{content}
+			WHERE no LIKE #{no}
+		]]>
+	</update>
+	
+	<!-- 게시판 수정 시 선택 -->
+	<select id="selectByBoardChooseNumber">
+		<![CDATA[
+			SELECT title, content
+			FROM board
+			WHERE no LIKE #{no}
+		]]>
+	</select>
+	
+	<!-- 게시판 삭제 -->
+	<delete id="deleteByBoardDelete" parameterType="int">
+		<![CDATA[
+			DELETE
+			FROM board
+			WHERE no LIKE #{no}
+		]]>
+	</delete>
+	
+	<!-- 게시판 찾기 -->
+	<select id="selectByBoardSearch" parameterType="String">
+		<![CDATA[
+			SELECT b.no, b.title, u.name, b.hit, b.reg_date
+			FROM board b, users u
+			WHERE b.user_no = u.no
+			AND b.title LIKE #{title}
+		]]>
+	</select>
+	
+	<!-- 조회수 -->
+	<update id="updateByBoardHit" parameterType="int">
+		<![CDATA[
+			UPDATE board
+			SET hit = NVL(hit,0) + 1
+			WHERE no LIKE #{no}
+		]]>
+	</update>
+	
+	<!--  게시판 총 갯수 -->
+	<select id="selectByBoardCount">
+		<![CDATA[
+			SELECT count(*)
+			FROM board
+		]]>
+	</select>
+</mapper>

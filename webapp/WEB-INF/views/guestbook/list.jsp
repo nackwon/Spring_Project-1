@@ -6,24 +6,22 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link href="/mysite/assets/css/guestbook.css" rel="stylesheet" type="text/css">
-	<link href="/mysite/assets/css/mysite.css" rel="stylesheet" type="text/css">
+	<link href="${pageContext.request.contextPath }/assets/css/guestbook.css" rel="stylesheet" type="text/css">
+	<link href="${pageContext.request.contextPath }/assets/css/mysite.css" rel="stylesheet" type="text/css">
 	<title>Guest Book List</title>
 </head>
 <body>
 
 	<div id="container">
 		
-		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
-				
-		<jsp:include page="/WEB-INF/views/includes/navigation.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
+		<c:import url="/WEB-INF/views/includes/navigation.jsp"></c:import>
 		
 		<div id="wrapper">
 			<div id="content">
 				<div id="guestbook">
 					
-					<form action="/mysite/guest" method="get">
-						<input type="hidden" name="cmd" value="writer">
+					<form action="${pageContext.request.contextPath }/guest/guestwrite" method="post">
 						<table>
 							<tr>
 								<td>이름</td><td><input type="text" name="name" /></td>
@@ -33,7 +31,9 @@
 								<td colspan=4><textarea name="content" id="content"></textarea></td>
 							</tr>
 							<tr>
-								<td colspan=4 align=right><input type="submit" VALUE=" 확인 " /></td>
+								<td colspan=4 align=right>
+									<input type="submit" VALUE=" 확인 " />
+								</td>
 							</tr>
 						</table>
 					</form>
@@ -46,7 +46,7 @@
 									<td>[${userList.no}]</td>
 									<td>${userList.name }</td>
 									<td>${userList.reg_date }</td>
-									<td><a href="/mysite/guest?cmd=deleteform&no=${userList.no}">삭제</a></td>
+									<td><a href="${pageContext.request.contextPath }/guest/guestdeleteform?no=${userList.no}">삭제</a></td>
 								</tr>
 								<tr>
 									<td colspan=4>
@@ -58,14 +58,12 @@
 						</li>
 					</ul>
 					</c:forEach>
-					
-				
 				</div><!-- /guestbook -->
 			</div><!-- /content -->
 		</div><!-- /wrapper -->
-		
-		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
-		
+
+		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
+
 	</div> <!-- /container -->
 
 </body>

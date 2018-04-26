@@ -116,6 +116,7 @@ INCREMENT BY 1
 START WITH 1
 NOCACHE;
 SELECT * FROM guest_tbl;
+DELETE guest_btl WHERE no = 13;
 // GuestBook end//
 
 SELECT e.no, b.user_no

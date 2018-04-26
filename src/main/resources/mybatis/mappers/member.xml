@@ -5,12 +5,31 @@
 	<insert id="insertMember" parameterType="kr.co.jimmy.VO.MemberVO">
 		<![CDATA[
 			INSERT INTO users
-			VALUES( seq_users_no.nextval,
-					#{name},
-					#{email},
-					#{password},
-					#{gender}
+			VALUES (seq_users_no.nextval
+					,#{name}
+					,#{email}
+					,#{password}
+					,#{gender}
 				   )
 		]]>
 	</insert>
+	
+	<select id="selectMemberByEmailPassword" parameterType="map" resultType="kr.co.jimmy.VO.MemberVO">
+		<![CDATA[
+			SELECT no, name
+			FROM users
+			WHERE email = #{email} 
+			AND password = #{password}
+		]]>
+	</select>
+	
+	<update id="updateMemberByemailPasswordgender" parameterType="map">
+		<![CDATA[
+			UPDATE users
+			SET name = #{name}
+					,password = #{password}
+					,gender = #{gender}
+			WHERE no LIKE #{no}
+		]]>
+	</update>
 </mapper>

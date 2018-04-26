@@ -7,14 +7,14 @@
 	<ul>
 		<c:if test="${sessionScope.authUser == null}">
 			<!-- 로그인 전 -->
-			<li><a href="/spring_mysite/loginform">로그인</a></li>
-			<li><a href="/spring_mysite/registform">회원가입</a></li>
+			<li><a href="${pageContext.request.contextPath }/user/loginform">로그인</a></li>
+			<li><a href="${pageContext.request.contextPath }/user/joinform">회원가입</a></li>
 		</c:if>
 		
 		<c:if test="${sessionScope.authUser != null }">
 			<!-- 로그인 후 -->
-			<li><a href="/spring_mysite/modifyform">회원정보수정</a></li>
-			<li><a href="/spring_mysite/logout">로그아웃</a></li>
+			<li><a href="${pageContext.request.contextPath }/user/modifyform">회원정보수정</a></li>
+			<li><a href="${pageContext.request.contextPath }/user/logout">로그아웃</a></li>
 			<li>${sessionScope.authUser.name }님</li>
 		</c:if>
 	</ul>

@@ -1,26 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<link href="/spring_mysite/assets/css/main.css" rel="stylesheet" type="text/css">
-	<link href="/spring_mysite/assets/css/mysite.css" rel="stylesheet" type="text/css">
+	<link href="${pageContext.request.contextPath }/assets/css/main.css" rel="stylesheet" type="text/css">
+	<link href="${pageContext.request.contextPath }/assets/css/mysite.css" rel="stylesheet" type="text/css">
 	
 	<title>Mysite</title>
 </head>
 <body>
 	<div id="container">
 		
-		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
-		
-		<jsp:include page="/WEB-INF/views/includes/navigation.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
+		<c:import url="/WEB-INF/views/includes/navigation.jsp"></c:import>
 
 		<div id="wrapper">
 			<div id="content">
 				<div id="site-introduction">
-					<img style="width: 150px" id="profile" src="/mysite/assets/images/profile.png">
-					<h2>안녕하세요.<br> ${sessionScope.authUser.name} 사이트에 방문하신 것을<br/> 환영합니다.</h2>
+					<img style="width: 150px" id="profile" src="${pageContext.request.contextPath }/assets/images/profile.png">
+					<h2>안녕하세요.<br>  사이트에 방문하신 것을<br/> 환영합니다.</h2>
 					<p>
 						이 사이트는 웹 프로그램밍 실습과제 예제 사이트입니다.
 						<br>
@@ -34,8 +33,7 @@
 			</div>
 		</div>
 		
-		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
-		
+		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 	</div>
 </body>
 </html>
