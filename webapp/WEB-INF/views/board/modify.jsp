@@ -20,9 +20,8 @@
 		<div id="content">
 			<div id="board">
 				<form class="board-form" method="post"
-					action="/mysite/board?cmd=update">
-					<input type="hidden" name="no"
-						value="${requestScope.modifyVo.number}">
+					action="${pageContext.request.contextPath }/board/boardModify">
+					<input type="hidden" name="no" value="${requestScope.modifyVo.no}">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글수정</th>
@@ -39,7 +38,7 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="/mysite/board">취소</a> <input type="submit" value="수정">
+						<a href="${pageContext.request.contextPath }/board/boardList">취소</a> <input type="submit" value="수정">
 					</div>
 				</form>
 			</div>

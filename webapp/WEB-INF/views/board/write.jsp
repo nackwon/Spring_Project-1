@@ -19,9 +19,8 @@
 
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="/mysite/board">
-					<input type="hidden" name="cmd" value="write"> <input
-						type="hidden" name="no" value="${sessionScope.authUser.no}">
+				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/boardList">
+					<input type="hidden" name="no" value="${sessionScope.authUser.no}">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
@@ -36,14 +35,13 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="/mysite/board">취소</a> <input type="submit" value="등록">
+						<a href="${pageContext.request.contextPath }/board/boardList">취소</a> <input type="submit" value="등록">
 					</div>
 				</form>
 			</div>
 		</div>
 
 		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
-
 	</div>
 </body>
 </html>

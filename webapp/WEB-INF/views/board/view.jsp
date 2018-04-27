@@ -16,7 +16,6 @@
 	
 		<div id="content">
 			<div id="board" class="board-form">
-				<input type="hidden" name="content_no" value="${requestScope.updateVo.number}">	
 					<table class="tbl-ex">
 					<tr>
 						<th colspan="2">글보기</th>
@@ -35,8 +34,10 @@
 					</tr>
 				</table>
 				<div class="bottom">
-					<a href="/mysite/board">글목록</a>
-					<a href="/mysite/board?cmd=modify&no=${requestScope.updateVo.number}">글수정</a>
+					<a href="${pageContext.request.contextPath }/board/boardList">글목록</a>
+					<c:if test="${(sessionScope.authUser != null) && (requestScope.updateVo.user_no == sessionScope.authUser.no)}">
+						<a href="${pageContext.request.contextPath }/board/boardModifyform?no=${requestScope.updateVo.no}">글수정</a>
+					</c:if>
 				</div>
 			</div>
 		</div>

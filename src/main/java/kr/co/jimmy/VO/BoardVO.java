@@ -2,7 +2,7 @@ package kr.co.jimmy.VO;
 
 public class BoardVO {
 
-	private int number;
+	private int no;
 	private String title;
 	private String content;
 	private int hit;
@@ -18,12 +18,12 @@ public class BoardVO {
 		this.user_name = user_name;
 	}
 
-	public int getNumber() {
-		return number;
+	public int getNo() {
+		return no;
 	}
 
-	public void setNumber(int number) {
-		this.number = number;
+	public void setNo(int no) {
+		this.no = no;
 	}
 
 	public String getTitle() {
@@ -64,6 +64,12 @@ public class BoardVO {
 
 	public void setUser_no(int user_no) {
 		this.user_no = user_no;
+	}
+
+	@Override
+	public String toString() {
+		return "BoardVO [no=" + no + ", title=" + title + ", content=" + content + ", hit=" + hit
+				+ ", reg_date=" + reg_date + ", user_no=" + user_no + ", user_name=" + user_name + "]";
 	}
 
 }

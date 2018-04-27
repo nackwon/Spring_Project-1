@@ -70,7 +70,7 @@ NOCACHE;
 
 SELECT *  FROM board;
 
-SELECT b.no, b.title, u.name, b.hit, b.reg_date, b.user_no
+SELECT b.no, b.title, u.name as user_name, b.hit, b.reg_date, b.user_no
 FROM board b, users u
 WHERE u.no = b.user_no
 ORDER BY b.no DESC;

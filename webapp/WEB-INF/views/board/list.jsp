@@ -22,7 +22,8 @@
 			<div id="board">
 				<form id="search_form" action="" method="get">
 					<input type="hidden" name="cmd" value="search"> 
-					<input type="text" name="kwd" value=""> <input type="submit" value="찾기">
+					<input type="text" name="kwd" value=""> 
+					<input type="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
 					<tr>
@@ -35,9 +36,9 @@
 					</tr>
 					<c:forEach items="${boardList}" var="boardList" varStatus="status">
 						<tr>
-							<td>${boardList.number}</td>
+							<td>${boardList.no}</td>
 							<td><a
-								href="/mysite/board?cmd=updateView&no=${boardList.number}">${boardList.title}</a></td>
+								href="${pageContext.request.contextPath }/board/boardViewform?no=${boardList.no}">${boardList.title}</a></td>
 							<td>${boardList.user_name}</td>
 							<td>${boardList.hit}</td>
 							<td>${boardList.reg_date}</td>
@@ -45,7 +46,7 @@
 								<c:when
 									test="${sessionScope.authUser != null && sessionScope.authUser.no == boardList.user_no }">
 									<td><a
-										href="/mysite/board?cmd=delete&use_no=${boardList.user_no}&no=${boardList.number}"
+										href="${pageContext.request.contextPath }/board/boardDelete?no=${boardList.no}"
 										class="del">삭제</a></td>
 								</c:when>
 								<c:otherwise>
@@ -81,7 +82,7 @@
 				</div>
 				<c:if test="${sessionScope.authUser != null}">
 					<div class="bottom">
-						<a href="/mysite/board?cmd=writeView" id="new-book">글쓰기</a>
+						<a href="${pageContext.request.contextPath }/board/boardWriteform" id="new-book">글쓰기</a>
 					</div>
 				</c:if>
 			</div>
