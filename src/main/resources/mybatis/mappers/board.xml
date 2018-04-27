@@ -5,8 +5,8 @@
 	<!-- 게시판 리스트 보기 -->
 	<select id="selectByBoardList" resultType="kr.co.jimmy.VO.BoardVO">
 		<![CDATA[
-			SELECT X.no, X.title, X.name as user_name, X.reg_date, X.user_no
-			FROM (SELECT rownum AS num, A.no, A.title, A.name, A.reg_date, A.user_no
+			SELECT X.no, X.title, X.name as user_name, X.hit, X.reg_date, X.user_no
+			FROM (SELECT rownum AS num, A.no, A.title, A.name, A.hit, A.reg_date, A.user_no
 				  FROM (SELECT b.no, b.title, u.name, b.hit, b.reg_date, b.user_no
 				 	    FROM board b, users u
 				        WHERE u.no = b.user_no
