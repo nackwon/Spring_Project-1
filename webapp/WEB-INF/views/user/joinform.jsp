@@ -24,8 +24,8 @@
 	
 						<label class="block-label" for="email">이메일</label>
 						<input id="email" name="email" type="text" value="">
-						<input type="button" value="id 중복체크">
-						
+						<input type="button" id="btn" value="id 중복체크">
+						<div id="msg"></div>
 						<label class="block-label">패스워드</label>
 						<input name="password" type="password" value="">
 						
@@ -53,4 +53,31 @@
 	</div> <!-- /container -->
 
 </body>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery-1.12.4.js"></script>
+	<script type="text/javascript">
+		$("#btn").on("click",function(){
+			var email = $("[name=email]").val();
+			
+			$.ajax({
+				url: "${pageContext.request.contextPath}/user/emailcheck", // 보내려는 page 일단 우리는 controller에 메소드를 만들어 거기로 보냄
+				type: "POST",          // 보내는 방식 get/post
+				data: {email : email}, // 보낼 데이터를 key:value 형태로 작성 
+				
+				dataType: "json", // text, html, xml, json, jsonp, and script.
+				success: function(result){
+					console.log(result);
+					if(result == true){
+						$("#msg").html("사용할 수 있는 아이디 입니다.");
+					} else{
+						$("#msg").html("사용할 수 없는 아이디 입니다.");
+					}
+				}, // 성공 시 실행될 함수
+				error:function(XHR, status, error){
+					console.error(status+" : "+ error);
+				} // 실패 시 실행될 함수
+			});
+		});
+		// 데이터를 주고 받을 때 사용한다 또한 비동기식 방식
+		// 실행이 되면 그대로 끝
+	</script>
 </html>

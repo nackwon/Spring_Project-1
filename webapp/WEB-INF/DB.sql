@@ -30,6 +30,10 @@ select no, name, email, password, gender
 from users
 order by no desc;
 
+SELECT email 
+FROM users
+WHERE email LIKE 'jimmy1';
+		
 select no, name, email, password, gender
 from users
 where no = 4;

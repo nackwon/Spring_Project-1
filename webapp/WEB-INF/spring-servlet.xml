@@ -13,11 +13,11 @@
 
 	<!-- com.javaex.controller 패키지 밑에 있는 클래스 중에 @Controller를 달고 있는 클래스의 객체를 
 		생성 하겠다. (new 하겠다) -->
-	<context:component-scan base-package="kr.co.jimmy.controller"/>
-	
+	<context:component-scan base-package="kr.co.jimmy.controller" />
+
 	<mvc:default-servlet-handler />
 	<mvc:annotation-driven />
-	
+
 	<!-- 기본 뷰 리졸버 -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -27,4 +27,17 @@
 		<property name="suffix" value=".jsp" />
 		<property name="order" value="1" />
 	</bean>
+	
+	<!-- json 인코딩을 위한 용도 -->
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json; charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
 </beans>

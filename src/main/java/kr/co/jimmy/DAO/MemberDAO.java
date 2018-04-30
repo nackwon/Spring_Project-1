@@ -38,4 +38,8 @@ public class MemberDAO {
 		
 		return sqlSession.update("member.updateMemberByemailPasswordgender",map);
 	}
+	
+	public MemberVO select(String email) {
+		return sqlSession.selectOne("member.selectMemberByPossible",email);
+	}
 }

@@ -32,4 +32,10 @@
 			WHERE no LIKE #{no}
 		]]>
 	</update>
+	
+	<select id="selectMemberByPossible" parameterType="String" resultType="kr.co.jimmy.VO.MemberVO">
+		SELECT no 
+		FROM users
+		WHERE email LIKE #{email}
+	</select>
 </mapper>

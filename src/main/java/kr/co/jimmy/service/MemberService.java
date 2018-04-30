@@ -23,4 +23,13 @@ public class MemberService {
 	public int modify(String no,MemberVO vo) {
 		return dao.updateMember(no, vo);
 	}
+	
+	public boolean memberCheck(String email) {
+		MemberVO vo = dao.select(email);
+		
+		if(vo != null)
+			return false; // 이미 회원 존재
+		else
+			return true; // 회원 없음
+	}
 }
