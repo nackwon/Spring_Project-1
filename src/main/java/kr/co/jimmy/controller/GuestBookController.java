@@ -20,6 +20,13 @@ public class GuestBookController {
 	private GuestService guestService;
 	String path = "/spring_mysite/";
 	
+	// ajax form
+	@RequestMapping(value="/gb/ajaxform", method=RequestMethod.GET)
+	public String ajaxform() {
+		System.out.println("ajax!");
+		return "guestbook/list_ajax";
+	}
+	
 	// Guest Write form
 	@RequestMapping(value="/guestform", method=RequestMethod.GET)
 	public String guestWriteform(Model model) {

@@ -26,4 +26,22 @@ public class GuestService {
 	public int delte(String no, String password) {
 		return dao.delete(no, password);
 	}
+	
+	// ajax
+	public GuestVO write(GuestVO vo) {
+		dao.insert(vo);
+		return dao.select(vo.getNo());
+	}
+	
+	// ajax
+	public boolean ajaxdel(int no ,String password) {
+		boolean flag = false;
+		int number = dao.ajaxDelete(no, password);
+		if(number == 1){
+			flag = true; // 삭제 완료
+		} else {
+			flag = false; // 노 삭제
+		}
+		return flag;
+	}
 }

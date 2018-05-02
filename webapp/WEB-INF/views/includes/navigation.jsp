@@ -5,6 +5,7 @@
 	<ul>
 		<li><a href="${pageContext.request.contextPath }/profile">지미원</a></li>
 		<li><a href="${pageContext.request.contextPath }/guest/guestform">방명록</a></li>
+		<li><a href="${pageContext.request.contextPath }/guest/gb/ajaxform">AJAX 방명록</a></li>
 		<li><a href="${pageContext.request.contextPath }/board/boardList">게시판</a></li>
 	</ul>
 </div>

@@ -24,14 +24,12 @@ public class MemberController {
 	// join form
 	@RequestMapping(value = "/joinform", method = RequestMethod.GET)
 	public String joinform() {
-		System.out.println("joinform");
 		return "user/joinform";
 	}
 
 	// join
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join(@ModelAttribute MemberVO vo) {
-		System.out.println("join");
 		memberService.join(vo);
 		return "user/joinsuccess";
 	}
@@ -46,7 +44,6 @@ public class MemberController {
 	// login form
 	@RequestMapping(value = "/loginform", method = RequestMethod.GET)
 	public String loginform() {
-		System.out.println("loginform");
 		return "user/loginform";
 	}
 

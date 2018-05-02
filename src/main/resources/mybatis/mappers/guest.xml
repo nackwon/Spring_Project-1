@@ -5,12 +5,44 @@
 		<![CDATA[
 			SELECT no
 				  ,name
+				  ,password
 				  ,content
 				  ,reg_date  
 			FROM guest_tbl
+			ORDER BY no DESC
 		]]>
 	</select>
 	
+	<insert id="insertByAjaxguest" parameterType="kr.co.jimmy.VO.GuestVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			<![CDATA[
+				SELECT seq_guest_no.nextval
+				FROM dual
+			]]>
+		</selectKey>
+		<![CDATA[
+			INSERT INTO guest_tbl
+			VALUES (#{no}
+					,#{name}
+					,#{password}
+					,#{content}
+					,sysdate
+			)
+		]]>
+	</insert>
+	
+	<select id="selectByAjaxguest" parameterType="int" resultType="kr.co.jimmy.VO.GuestVO">
+		<![CDATA[
+			SELECT no
+				  ,name
+				  ,content
+				  ,reg_date  
+			FROM guest_tbl
+			WHERE no LIKE #{no}
+			ORDER BY no DESC
+		]]>
+	</select>
+
 	<insert id="insertByguest" parameterType="map">
 		<![CDATA[
 			INSERT INTO guest_tbl
@@ -22,7 +54,7 @@
 			)
 		]]>
 	</insert>
-	
+
 	<delete id="deleteByguest" parameterType="map">
 		<![CDATA[
 			DELETE

@@ -1,6 +1,5 @@
 package kr.co.jimmy.DAO;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,6 +30,24 @@ public class GuestDAO {
 
 	public int delete(String no, String password) {
 		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("no", no);
+		map.put("password", password);
+		return sqlSession.delete("guest.deleteByguest", map);
+	}
+	
+	// ajax
+	public int insert(GuestVO vo) {	
+		return sqlSession.insert("guest.insertByAjaxguest", vo);
+	}
+	
+	// ajax 
+	public GuestVO select(int no) {
+		return sqlSession.selectOne("guest.selectByAjaxguest",no);
+	}
+	
+	// ajax
+	public int ajaxDelete(int no, String password) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("no", no);
 		map.put("password", password);
 		return sqlSession.delete("guest.deleteByguest", map);
