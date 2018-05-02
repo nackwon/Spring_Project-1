@@ -60,7 +60,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
+					<button type="button" class="close" id="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -73,7 +73,7 @@
 						<div id="modalmsg"></div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-success" data-dismiss="modal">취소</button>
+					<button type="button" class="btn btn-success" data-dismiss="modal" id="btn_cancel">취소</button>
 					<button type="button" class="btn btn-danger" id="btn_del">삭제</button>
 				</div>
 			</div>
@@ -160,6 +160,7 @@
 	$("#guestList").on("click","button", function(){
 		var $delno = $("#delno").val(),
 			$modalNo = $("#modalNo").val($delno);
+		
 		$("#del-pop").modal();
 	});
 	
@@ -176,7 +177,8 @@
 			dataType:"json",
 			success: function(flag){
 				if(flag == true){
-					$("#delno").parents("table").remove();
+					$("#delno").parents("table")
+							   .remove();
 					$("#modalPassword").val("");
 					$("#del-pop").modal("hide");
 				} else if(flag == false){
@@ -187,6 +189,9 @@
 		});
 	});
 	
+	$("#btn_cancel, #close").on("click",function(){
+		$("#modalmsg").text("");
+	});
 	
 </script>
 </html>

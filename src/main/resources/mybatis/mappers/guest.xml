@@ -4,12 +4,12 @@
 	<select id="selectByguest" resultType="kr.co.jimmy.VO.GuestVO">
 		<![CDATA[
 			SELECT no
-				  ,name
-				  ,password
-				  ,content
-				  ,reg_date  
+					,name
+				  	,password
+				  	,content
+				  	,reg_date  
 			FROM guest_tbl
-			ORDER BY no DESC
+			ORDER BY no DESC 
 		]]>
 	</select>
 	
