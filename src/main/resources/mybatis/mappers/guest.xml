@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="guest">
+	<select id="selectByguestScroll" parameterType="map" resultType="kr.co.jimmy.VO.GuestVO">
+		<![CDATA[
+			SELECT no, name, password, content, reg_date
+				FROM (SELECT rownum as num, no, name, password, content, reg_date
+	 				 FROM (SELECT no,name,password,content,reg_date  
+	  	   					FROM guest_tbl
+	  	    				ORDER BY no DESC)
+	  				WHERE rownum <= #{end})
+			WHERE num >= #{start}; 
+		]]>
+	</select>
+	
 	<select id="selectByguest" resultType="kr.co.jimmy.VO.GuestVO">
 		<![CDATA[
 			SELECT no

@@ -39,4 +39,11 @@ public class ApiGuestBookController {
 	public boolean del(@RequestParam("no") int no, @RequestParam("password") String password) {
 		return guestService.ajaxdel(no, password);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/scroll", method=RequestMethod.GET)
+	public ArrayList<GuestVO> list_scroll(@RequestParam("start") int start, @RequestParam("end") int end){
+		ArrayList<GuestVO> list = (ArrayList<GuestVO>)guestService.list(start, end);
+		return list;
+	}
 }

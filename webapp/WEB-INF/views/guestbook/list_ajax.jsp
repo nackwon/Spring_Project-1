@@ -44,7 +44,7 @@
 					<!-- 방명록 리스트 -->
 					<ul id="guestList">
 					</ul>
-
+					<button class="btn" id="more_btn">더 보기</button>
 				</div>
 				<!-- /guestbook -->
 			</div>
@@ -70,10 +70,11 @@
 					<label>비밀번호</label> <input type="password" name="modalPassword"
 						id="modalPassword"><br> <input type="hidden"
 						name="modalPassword" value="" id="modalNo"> <br>
-						<div id="modalmsg"></div>
+					<div id="modalmsg"></div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-success" data-dismiss="modal" id="btn_cancel">취소</button>
+					<button type="button" class="btn btn-success" data-dismiss="modal"
+						id="btn_cancel">취소</button>
 					<button type="button" class="btn btn-danger" id="btn_del">삭제</button>
 				</div>
 			</div>
@@ -90,7 +91,17 @@
 	src="${pageContext.request.contextPath }/assets/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		fetchList();
+		var end = 5,
+			start = 1;
+		fetchList(start, end);
+		
+		$(window).on("scroll", function() {
+			if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+				start += 5;
+				end += 5;
+				fetchList(start, end);
+			}
+		});
 	});
 
 	$("#btnAdd").on("click", function() {
@@ -119,13 +130,13 @@
 
 	});
 
-	function fetchList() {
+	function fetchList(start, end) {
 		$.ajax({
 			url : "${pageContext.request.contextPath }/guest/gb/list",
 			type : "POST",
 			dataType : "json",
 			success : function(list) {
-				for (var i in list) {
+				for (var i = start - 1; i < end; i++) {
 					random(list[i], "down");
 				}
 			}
@@ -141,7 +152,7 @@
 		str += "			<td>" + guestbookVo.name + "</td>";
 		str += "			<td>" + guestbookVo.reg_date + "</td>";
 		str += "			<td><button id='btnModal' class='btn'>삭제</button></td>";
-		str += " 			<input type='hidden' id='delno' value='"+guestbookVo.no+"'>";
+		str += " 			<input type='hidden' id='delno' value='" + guestbookVo.no + "'>";
 		str += "		</tr><tr>";
 		str += "			<td colspan=4>" + guestbookVo.content + "</td>";
 		str += "		</tr>";
@@ -156,42 +167,59 @@
 			console.log("오류");
 		}
 	}
-	
-	$("#guestList").on("click","button", function(){
+
+	$("#guestList").on("click", "button", function() {
 		var $delno = $("#delno").val(),
 			$modalNo = $("#modalNo").val($delno);
-		
+
 		$("#del-pop").modal();
 	});
-	
-	$("#btn_del").on("click", function(){
+
+	$("#btn_del").on("click", function() {
 		var $modalPassword = $("#modalPassword").val(),
 			$modalNo = $("#modalNo").val();
 		$.ajax({
-			url:"${pageContext.request.contextPath }/guest/gb/del",
-			type:"POST",
-			data:{
+			url : "${pageContext.request.contextPath }/guest/gb/del",
+			type : "POST",
+			data : {
 				no : $modalNo,
 				password : $modalPassword
 			},
-			dataType:"json",
-			success: function(flag){
-				if(flag == true){
+			dataType : "json",
+			success : function(flag) {
+				if (flag == true) {
 					$("#delno").parents("table")
-							   .remove();
+						.remove();
 					$("#modalPassword").val("");
 					$("#del-pop").modal("hide");
-				} else if(flag == false){
+				} else if (flag == false) {
 					$("#modalmsg").html("비밀번호가 틀립니다.");
 					$("#modalPassword").val("");
 				}
 			}
 		});
 	});
-	
-	$("#btn_cancel, #close").on("click",function(){
+
+	// 모달 창 취소 시 초기화
+	$("#btn_cancel, #close").on("click", function() {
 		$("#modalmsg").text("");
 	});
-	
+
+	$("#more_btn").on("click", function() {
+		var number = 5;
+	});
+
+	$("#more_btn").on("click", function() {
+		start += 5;
+		end += 5;
+		$("#guestList").append(fetchList(start, end));
+	});
+
+	// 스크롤
+	$(window).on("scroll", function() {
+		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+			fetchList();
+		}
+	});
 </script>
 </html>

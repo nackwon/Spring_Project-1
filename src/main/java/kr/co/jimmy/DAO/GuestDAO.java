@@ -52,4 +52,11 @@ public class GuestDAO {
 		map.put("password", password);
 		return sqlSession.delete("guest.deleteByguest", map);
 	}
+	
+	public List<GuestVO> select1(int start, int end){
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("end", end);
+		map.put("start",start);
+		return sqlSession.selectList("guest.selectByguestScroll",map);
+	}
 }

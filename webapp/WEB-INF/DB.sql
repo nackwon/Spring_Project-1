@@ -119,8 +119,38 @@ CREATE SEQUENCE seq_guest_no
 INCREMENT BY 1
 START WITH 1
 NOCACHE;
+
+DROP TABLE guest_tbl;
+DROP SEQUENCE seq_guest_no;
 SELECT * FROM guest_tbl;
 DELETE FROM guest_tbl;
+SELECT no, name, password, content, reg_date
+FROM (SELECT rownum as num, no, name, password, content, reg_date
+	  FROM (SELECT no,name,password,content,reg_date  
+	  	    FROM guest_tbl
+	  	    ORDER BY no DESC)
+	  WHERE rownum <= 5)
+WHERE num >= 1;
+
+DECLARE
+	i NUMBER := 1;
+BEGIN
+	while i<=100 loop
+	
+	INSERT INTO guest_tbl (no, name, password, content, reg_date)
+	VALUES(
+		seq_guest_no.nextval
+		,'jimmy'
+		,'1234'
+		,i||'째 방명록입니다.'
+		,sysdate);
+		
+		i := i+1;
+	END loop;
+END;
+
+commit
+	
 // GuestBook end//
 
 SELECT e.no, b.user_no
