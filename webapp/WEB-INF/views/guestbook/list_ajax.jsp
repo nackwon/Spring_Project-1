@@ -96,9 +96,11 @@
 		fetchList(start, end);
 		
 		$(window).on("scroll", function() {
+			
 			if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 				start += 5;
 				end += 5;
+				
 				fetchList(start, end);
 			}
 		});
@@ -106,14 +108,20 @@
 
 	$("#btnAdd").on("click", function() {
 		//event.preventDefault(); 기존의 form으 기능을 죽이는 명령어
-		console.log("btnAdd");
-		var $name = $("[name=name]").val(),
-			$password = $("[name=password]").val(),
-			$content = $("[name=content]").val();
+		
+		var $name = $("[name=name]").val()
+			,$password = $("[name=password]").val()
+			,$content = $("[name=content]").val();
+		
+		// 자바스크립트에서 객체로 표현하는 방법
+		//guestbookVo = { };
 
 		$.ajax({
 			url : "${pageContext.request.contextPath }/guest/gb/add",
 			type : "POST",
+			contentType : "application/json",
+			// 이렇게 작성하면 json 형태로 만들어서 보내준다.
+			//data : JSON.stringify(guestbookVo),
 			data : {
 				name : $name,
 				password : $password,
@@ -151,8 +159,7 @@
 		str += "			<td>[" + guestbookVo.no + "]</td>";
 		str += "			<td>" + guestbookVo.name + "</td>";
 		str += "			<td>" + guestbookVo.reg_date + "</td>";
-		str += "			<td><button id='btnModal' class='btn'>삭제</button></td>";
-		str += " 			<input type='hidden' id='delno' value='" + guestbookVo.no + "'>";
+		str += "			<td><button id='btnModal' class='btn' data-delno='"+guestbookVo.no+"'>삭제</button></td>";
 		str += "		</tr><tr>";
 		str += "			<td colspan=4>" + guestbookVo.content + "</td>";
 		str += "		</tr>";
@@ -169,9 +176,10 @@
 	}
 
 	$("#guestList").on("click", "button", function() {
-		var $delno = $("#delno").val(),
-			$modalNo = $("#modalNo").val($delno);
-
+		var $delno = $(this).data("delno");
+		console.log($delno);
+		console.log($(this));
+		$("#modalNo").val($delno);
 		$("#del-pop").modal();
 	});
 
@@ -188,8 +196,7 @@
 			dataType : "json",
 			success : function(flag) {
 				if (flag == true) {
-					$("#delno").parents("table")
-						.remove();
+					$("#btnModal").parents("li").remove();
 					$("#modalPassword").val("");
 					$("#del-pop").modal("hide");
 				} else if (flag == false) {
@@ -209,17 +216,17 @@
 		var number = 5;
 	});
 
-	$("#more_btn").on("click", function() {
+	/* $("#more_btn").on("click", function() {
 		start += 5;
 		end += 5;
 		$("#guestList").append(fetchList(start, end));
 	});
-
+ */
 	// 스크롤
-	$(window).on("scroll", function() {
+	/* $(window).on("scroll", function() {
 		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 			fetchList();
 		}
-	});
+	}); */
 </script>
 </html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gallary">
+	<select id="selectByGallaryList" resultType="kr.co.jimmy.VO.FileVO">
+		<![CDATA[
+			SELECT no, filepath, orgname, savename, filesize, user_no
+			FROM gallary_tbl
+		]]>
+	</select>
+	
+	<insert id="insertByGallary" parameterType="kr.co.jimmy.VO.FileVO">
+		<![CDATA[
+			INSERT INTO gallary_tbl
+			VALUES ( seq_gallary_no.nextval
+					,#{filePath}
+					,#{orgName}
+					,#{saveName}
+					,#{fileSize}
+					,#{user_no}
+				 )	
+		]]>
+	</insert>
+	
+	<delete id="deleteByGallary" parameterType="int">
+		<![CDATA[
+			DELETE 
+			FROM gallary_tbl
+			WHERE no LIKE #{no}
+		]]>
+	</delete>
+	
+</mapper>

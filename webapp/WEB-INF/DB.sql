@@ -153,8 +153,27 @@ commit
 	
 // GuestBook end//
 
-SELECT e.no, b.user_no
-FROM member e, board b
-WHERE e.no = b.no;
+// Gallary start//
+CREATE TABLE gallary_tbl(
+	no number PRIMARY KEY,
+	filepath VARCHAR2(100) not null,
+	orgname VARCHAR2(100) not null,
+	savename VARCHAR2(100) not null,
+	filesize number,
+	user_no number,
+	CONSTRAINT g_board_fk FOREIGN KEY (user_no)
+	REFERENCES users(no)
+);
+CREATE SEQUENCE seq_gallary_no
+INCREMENT BY 1
+START WITH 1
+NOCACHE;
 
+DROP SEQUENCE seq_gallary_no;
+DROP TABLE gallary_tbl;
+
+SELECT no, filepath, orgname, savename, filesize
+			FROM gallary_tbl;
+
+// Gallary end//
 
